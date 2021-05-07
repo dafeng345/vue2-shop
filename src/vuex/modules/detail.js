@@ -52,7 +52,7 @@ const mutations = {
     state.count = Util.getLocal('count')
   },
 
-// 重置购物车
+// 获取购物车
   [types.RESET_CARLIST] (state) {
     state.carList = Util.getLocal('carList')
   },

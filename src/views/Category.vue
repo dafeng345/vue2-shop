@@ -16,7 +16,10 @@
 
 import Header from '@/common/_header.vue'
 import Aside from '@/components/category/aside.vue'
+// 下面category可以起作用的原因？
 import category from '@/http/mock.js' //模拟数据
+import * as moak from '@/http/mock.js'
+// console.log(moak,category)
 export default {
   components: {
     'v-header': Header,

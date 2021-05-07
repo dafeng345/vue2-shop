@@ -24,6 +24,7 @@ export default new Router({
       name: '分类页',
       redirect: '/category/all',
       component: Category,
+      // 路由组件嵌套，与<router-view/>对应。
       children: [{
         path: '/category/:tab',
         component:CategoryMain

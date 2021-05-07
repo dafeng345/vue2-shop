@@ -14,9 +14,11 @@ export default {
     if (isSaveOldData) {
       if(this.getLocal(key)) {
         let oldData = this.getLocal(key);
+        // 数组的拼接
         return window.localStorage.setItem(key, JSON.stringify(oldData.concat(res)))
       }
     }
+    // 添加
     return window.localStorage.setItem(key, JSON.stringify(res))
   }
 }

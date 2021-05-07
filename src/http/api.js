@@ -10,9 +10,11 @@ api.defaults.headers.post['X-Requested-With'] = 'XMLHttpRequest'
 
 // 请求拦截
 api.interceptors.request.use(function (config) {
-    // 在发送请求之前做些什么
+    // 在发送请求之前做些什么,Mutation作用：loading开关打开
     store.commit('SET_LOADING',true);
     // 如果有token,添加到请求报文 后台会根据该报文返回status
+    console.dir(store);
+    // Mutation:CHANGE_TOKEN当登录成功时，token=1；当退出登录时，token=0
     if(store.state.login.token) {
       config.headers.Authorization = `token ${store.state.login.token}`;
     }
@@ -24,14 +26,14 @@ api.interceptors.request.use(function (config) {
     alert('网络错误,请稍后再试');
 
     store.commit('SET_LOADING',false);
-
+    //axios执行失败回调
     return Promise.reject(error);
   });
 
 // 添加响应拦截器
 api.interceptors.response.use(function (response) {
-    // 对响应数据做点什么
-    // 加到时器主要是为了 展示Loading效果 项目中应去除
+    // loading开关关闭
+    // 加计时器主要是为了 展示Loading效果 项目中应去除
     setTimeout(()=>{
       store.commit('SET_LOADING',false);
     },300)
@@ -39,13 +41,13 @@ api.interceptors.response.use(function (response) {
     return response;
 
   }, function (error) {
-    // 对响应错误做点什么
+    // 对响应错误做点什么，
     store.commit('SET_LOADING',false);
 
-    if(errore.response) {
+    if(error.response) {
 
       if(error.response.status== 401) {
-          // 如果返回401 即没有权限，跳到登录页重新登录
+          // 如果返回401 即没有权限，跳到登录页重新登录，登录失败后设置token为0。
         store.commit('CHANGE_TOKEN',0);
 
         alert('请重新登录');

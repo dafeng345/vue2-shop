@@ -1,4 +1,5 @@
 var Random = Mock.Random
+// mock模拟未区分get与post请求：
 var index = Mock.mock('http://api.com/index', {
   // "user|5-10": [{
   //   'name': '@cname', //中文名称
@@ -89,6 +90,7 @@ var category = Mock.mock('http://api.com/category', {
       'title':'@cname',
       'list|60':[{
         'title':'@last',
+        // Random.image( size?, background?, foreground?, format?, text? )
         'imgPath':Random.image('2000x2000','#5169b4','#FFF','png',''),
 
       }]

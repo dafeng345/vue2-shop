@@ -1,4 +1,5 @@
 /* Detail + Car*/
+// 设置mutations的type类型：
 
 //Detail父组件中 当前页面商品的数据
 

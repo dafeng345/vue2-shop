@@ -4,7 +4,7 @@
     <v-gologin></v-gologin>
     <ul class="something" v-if='carList'>
       <li v-for="(k,i) in carList">
-          <div class="something-left" @click="toggle">
+          <div class="something-left" @click="toggle(i)">
             <label class="true" :class="{false:!k.choseBool}">
               <input type="checkbox" v-model="k.choseBool">
             </label>
@@ -42,6 +42,7 @@ export default {
 
   },
   mounted() {
+    debugger
     // 初始化先获取购物车商品列表 否则 页面刷新出Bug
     if (this.$store.state.detail.carList == "") {
       this.$store.commit('RESET_CARLIST')
@@ -59,16 +60,19 @@ export default {
         }
       }
 
-      //点击垃圾桶 把商品数量count-1
+      //点击垃圾桶 把购物车里面商品数量count-1
       this.$store.dispatch('setLocalCount', false);
+      // 删除购物车列表的某一项
       this.$store.dispatch('cutCarList', newCarList);
 
     },
-    toggle () {
+    toggle (i) {
       // 每点击一下都会改变choseBool的布尔值,所以要重置数组
-
+      // var that=this;
       this.$nextTick(() => {
-        this.$store.dispatch('cutCarList', this.carList)
+        // console.log(this===that)
+        // this.$store.dispatch('cutCarList', this.carList)
+        this.carList[i].choseBool=!this.carList[i].choseBool;
       })
 
     }

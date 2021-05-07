@@ -9,10 +9,12 @@ import Mint from 'mint-ui';    //移动端UI
 import 'mint-ui/lib/style.css'
 Vue.use(Mint);
 Vue.config.productionTip = false
+// 将api直接挂载到Vue函数对象原型上。
 Vue.prototype.$api = api;
 
 
 // 用钩子函数beforeEach()对路由进行判断
+console.dir(router)
 
 router.beforeEach((to, from, next) => {
     if (to.meta.requireAuth) {  // 需要权限,进一步进行判断
